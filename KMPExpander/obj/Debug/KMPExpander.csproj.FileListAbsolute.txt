@@ -1,0 +1,8 @@
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\bin\Debug\KMPExpander.exe.config
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\bin\Debug\KMPExpander.exe
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\bin\Debug\KMPExpander.pdb
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.KMPEd.resources
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.Properties.Resources.resources
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.csproj.GenerateResource.Cache
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.exe
+C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.pdb
