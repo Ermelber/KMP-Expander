@@ -1,0 +1,9 @@
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\bin\Debug\KMPExpander.exe.config
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\bin\Debug\KMPExpander.exe
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\bin\Debug\KMPExpander.pdb
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\obj\Debug\KMPExpander.csprojResolveAssemblyReference.cache
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\obj\Debug\KMPExpander.Properties.Resources.resources
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\obj\Debug\KMPExpander.csproj.GenerateResource.Cache
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\obj\Debug\KMPExpander.exe
+c:\users\ermii\documents\visual studio 2013\Projects\KMPExpander\KMPExpander\obj\Debug\KMPExpander.pdb
+C:\Users\Ermii\Documents\Visual Studio 2013\Projects\KMPExpander\KMPExpander\obj\Debug\KMPExpander.KMPEd.resources
