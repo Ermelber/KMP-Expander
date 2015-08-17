@@ -33,10 +33,11 @@ namespace KMPExpander
         string GroupBy4(int pos)
         {
             char[] TempStr = new char[4];
-            TempStr[0]=(char)keiempi[pos];
-            TempStr[1]=(char)keiempi[pos+1];
-            TempStr[2]=(char)keiempi[pos+2];
-            TempStr[3]=(char)keiempi[pos+3];
+            for (int ii = 0; ii < 4; ii++)
+            {
+                TempStr[ii] = (char)keiempi[pos + ii];
+            }
+                
             string s = new string(TempStr);
             return s;
         }
@@ -44,10 +45,10 @@ namespace KMPExpander
         string GroupBy4Bin(int pos)
         {
             char[] TempStr = new char[4];
-            TempStr[0] = (char)bin[pos];
-            TempStr[1] = (char)bin[pos + 1];
-            TempStr[2] = (char)bin[pos + 2];
-            TempStr[3] = (char)bin[pos + 3];
+            for (int ii = 0; ii < 4; ii++) {
+                TempStr[ii] = (char)bin[pos + ii];
+            }
+            
             string s = new string(TempStr);
             return s;
         }
@@ -365,12 +366,12 @@ namespace KMPExpander
                         csv += "#X,Y,Z,Point Size,Unknown1,Unknown2\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section], 4).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 28 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
+                            for (int ii = 2; ii < 6; ii++)
+                            {
+                                csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + ii*4 + i * PointSizes[Section]) + ",";
+                            }
+                                csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section], 4).Replace("-", string.Empty) + ","
+                                     + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 28 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
                         }
                         break;
                     }
@@ -380,41 +381,10 @@ namespace KMPExpander
                         csv += "#Start,Length,Previous1,Previous2,Previous3,Previous4,Previous5,Previous6,Previous7,Previous8,Previous9,Previous10,Previous11,Previous12,Previous13,Previous14,Previous15,Previous16,Next1,Next2,Next3,Next4,Next5,Next6,Next7,Next8,Next9,Next10,Next11,Next12,Next13,Next14,Next15,Next16,Unknown\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += (short)(keiempi[Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 8 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 10 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 10 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 12 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 14 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 14 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 16 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 18 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 18 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 20 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 22 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 22 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 24 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 24 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 26 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 26 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 28 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 28 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 30 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 30 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 32 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 32 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 34 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 34 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 36 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 36 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 38 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 38 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 40 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 40 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 42 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 42 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 44 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 44 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 46 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 46 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 48 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 48 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 50 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 50 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 52 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 52 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 54 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 54 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 56 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 56 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 58 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 58 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 60 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 60 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 62 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 62 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 64 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 64 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 66 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 66 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 68 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 68 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 70 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 70 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 72 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 72 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 74 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 74 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 76 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
+                            for (int ii=0; ii<34; ii++) {
+                                csv += (short)(keiempi[Offsets[Section] + 0x58 + 8 + ii * 2 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 8 + ii * 2 + 1 + i * PointSizes[Section]] << 8) + ",";
+                            }
+                                csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 76 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
                         }
                         break;
                     }
@@ -424,11 +394,10 @@ namespace KMPExpander
                         csv += "#X,Y,Z,Point Size,Unknown\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
+                            for (int ii=0; i<4; i++) {
+                                csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + ii*4 + i * PointSizes[Section]) + ",";
+                            }
+                            csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
                         }
                         break;
                     }
@@ -438,20 +407,10 @@ namespace KMPExpander
                         csv += "#Start,Length,Previous1,Previous2,Previous3,Previous4,Previous5,Previous6,Next1,Next2,Next3,Next4,Next5,Next6\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += (short)(keiempi[Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 8 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 10 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 10 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 12 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 14 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 14 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 16 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 18 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 18 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 20 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 22 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 22 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 24 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 24 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 26 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 26 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 28 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 28 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 30 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 30 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 32 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 32 + 1 + i * PointSizes[Section]] << 8) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 34 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 34 + 1 + i * PointSizes[Section]] << 8) + "\n";
+                            for (int ii=0; ii<13; ii++) {
+                                csv += (short)(keiempi[Offsets[Section] + 0x58 + 8 + ii*2 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 8 + ii*2 + 1 + i * PointSizes[Section]] << 8) + ",";
+                            }
+                            csv += (short)(keiempi[Offsets[Section] + 0x58 + 34 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 34 + 1 + i * PointSizes[Section]] << 8) + "\n";
                         }
                         break;
                     }
