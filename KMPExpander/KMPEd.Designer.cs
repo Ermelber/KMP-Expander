@@ -1,4 +1,5 @@
-﻿namespace KMPExpander
+﻿using KMPExpander;
+namespace KMPExpander
 {
     partial class KMPEd
     {
@@ -58,7 +59,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(258, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(274, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -111,7 +112,7 @@
             this.extractbin.Enabled = false;
             this.extractbin.Location = new System.Drawing.Point(15, 78);
             this.extractbin.Name = "extractbin";
-            this.extractbin.Size = new System.Drawing.Size(111, 23);
+            this.extractbin.Size = new System.Drawing.Size(121, 23);
             this.extractbin.TabIndex = 2;
             this.extractbin.Text = "Extract binary";
             this.extractbin.UseVisualStyleBackColor = true;
@@ -120,9 +121,9 @@
             // injectbin
             // 
             this.injectbin.Enabled = false;
-            this.injectbin.Location = new System.Drawing.Point(132, 78);
+            this.injectbin.Location = new System.Drawing.Point(142, 78);
             this.injectbin.Name = "injectbin";
-            this.injectbin.Size = new System.Drawing.Size(111, 23);
+            this.injectbin.Size = new System.Drawing.Size(120, 23);
             this.injectbin.TabIndex = 3;
             this.injectbin.Text = "Inject binary";
             this.injectbin.UseVisualStyleBackColor = true;
@@ -131,9 +132,9 @@
             // injectcsv
             // 
             this.injectcsv.Enabled = false;
-            this.injectcsv.Location = new System.Drawing.Point(132, 107);
+            this.injectcsv.Location = new System.Drawing.Point(142, 107);
             this.injectcsv.Name = "injectcsv";
-            this.injectcsv.Size = new System.Drawing.Size(111, 23);
+            this.injectcsv.Size = new System.Drawing.Size(120, 23);
             this.injectcsv.TabIndex = 5;
             this.injectcsv.Text = "Inject CSV";
             this.injectcsv.UseVisualStyleBackColor = true;
@@ -144,7 +145,7 @@
             this.extractcsv.Enabled = false;
             this.extractcsv.Location = new System.Drawing.Point(15, 107);
             this.extractcsv.Name = "extractcsv";
-            this.extractcsv.Size = new System.Drawing.Size(111, 23);
+            this.extractcsv.Size = new System.Drawing.Size(121, 23);
             this.extractcsv.TabIndex = 4;
             this.extractcsv.Text = "Extract CSV";
             this.extractcsv.UseVisualStyleBackColor = true;
@@ -176,7 +177,7 @@
             "GLPH (Glider Points\' Sections)"});
             this.comboBox1.Location = new System.Drawing.Point(15, 51);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(228, 21);
+            this.comboBox1.Size = new System.Drawing.Size(247, 21);
             this.comboBox1.TabIndex = 6;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -204,7 +205,6 @@
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Filesize:";
-            this.label2.Visible = false;
             // 
             // filesize_box
             // 
@@ -239,7 +239,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(258, 157);
+            this.ClientSize = new System.Drawing.Size(274, 157);
             this.Controls.Add(this.filesize_box);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -249,10 +249,11 @@
             this.Controls.Add(this.injectbin);
             this.Controls.Add(this.extractbin);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "KMPEd";
-            this.Text = "KMP Expander " + Ver;
+            this.Text = "KMP Expander v1.6";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

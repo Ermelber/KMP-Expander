@@ -14,7 +14,8 @@ namespace KMPExpander
     
     public partial class KMPEd : Form
     {
-        const string Ver = "v1.6";
+        public const string Ver = "v1.6";
+        //const string Ver = "v1.6";
         KMP keiempi;
         KMP bin;
         int SizeOfKMP;
@@ -420,18 +421,15 @@ namespace KMPExpander
                         csv += "#X1,Z1,X2,Z2,Respawn,Type,Previous,Next,Unkown1,SectionCount,Unknown2,Unknown3\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]) + ","
-                                 + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]) + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 24 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 25 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 26 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 27 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 28 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 29 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 30 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 31 + i * PointSizes[Section]] + "\n";
+                            for (int ii = 0; ii < 4; ii++)
+                            {
+                                csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + ii * 4 + i * PointSizes[Section]) + ",";
+                            }
+                            for (int ii = 0; ii < 7; ii++)
+                            {
+                                csv += keiempi[Offsets[Section] + 0x58 + 24 + ii + i * PointSizes[Section]] + ",";
+                            }
+                            csv += keiempi[Offsets[Section] + 0x58 + 31 + i * PointSizes[Section]] + "\n";
                         }
                         break;
                     }
@@ -441,21 +439,11 @@ namespace KMPExpander
                         csv += "#Start,Length,Previous1,Previous2,Previous3,Previous4,Previous5,Previous6,Next1,Next2,Next3,Next4,Next5,Next6,Unknown\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += keiempi[Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 9 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 10 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 11 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 13 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 14 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 15 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 17 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 18 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 19 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 21 + i * PointSizes[Section]] + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 22 + i * PointSizes[Section], 2).Replace("-", string.Empty) + "\n";
+                            for (int ii = 0; ii < 14; ii++)
+                            {
+                                csv += keiempi[Offsets[Section] + 0x58 + 8 + ii + i * PointSizes[Section]] + ",";
+                            }
+                            csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 22 + i * PointSizes[Section], 2).Replace("-", string.Empty) + "\n";
                         }
                         break;
                     }
@@ -476,18 +464,11 @@ namespace KMPExpander
                                  + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 36 + i * PointSizes[Section]) + ","
                                  + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 40 + i * PointSizes[Section]) + ","
                                  + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 44 + i * PointSizes[Section]) + ","
-                                 + (short)(keiempi[Offsets[Section] + 0x58 + 48 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 49 + i * PointSizes[Section]] << 8) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 50 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 52 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 54 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 56 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 58 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 60 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 62 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 64 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 66 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 68 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 70 + i * PointSizes[Section], 2).Replace("-", string.Empty) + "\n";
+                                 + (short)(keiempi[Offsets[Section] + 0x58 + 48 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 49 + i * PointSizes[Section]] << 8) + ",";
+                                 for (int ii = 0; ii < 10; ii++) {
+                                    csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 50 + ii*2 + i * PointSizes[Section], 2).Replace("-", string.Empty) + ",";
+                                 }
+                            csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 70 + i * PointSizes[Section], 2).Replace("-", string.Empty) + "\n";
                         }
                         break;
                     }
@@ -564,21 +545,11 @@ namespace KMPExpander
                         csv += "#Start,Length,Previous1,Previous2,Previous3,Previous4,Previous5,Previous6,Next1,Next2,Next3,Next4,Next5,Next6,Unknown1,Unknown2\n";
                         for (int i = 0; i < numpt; i++)
                         {
-                            csv += keiempi[Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 9 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 10 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 11 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 13 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 14 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 15 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 17 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 18 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 19 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]] + ","
-                                 + keiempi[Offsets[Section] + 0x58 + 21 + i * PointSizes[Section]] + ","
-                                 + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 22 + i * PointSizes[Section], 4).Replace("-", string.Empty) + ","
+                            for (int ii = 0; ii < 14; ii++)
+                            {
+                                csv += keiempi[Offsets[Section] + 0x58 + 8 + ii + i * PointSizes[Section]] + ",";
+                            }
+                            csv += "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 22 + i * PointSizes[Section], 4).Replace("-", string.Empty) + ","
                                  + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 26 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
                         }
                         break;
@@ -671,40 +642,10 @@ namespace KMPExpander
                         {
                             for (int i = 0; i < numpt; i++)
                             {
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[0])), 0, SecData, i * PointSizes[Section] + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[1])), 0, SecData, i * PointSizes[Section] + 2 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[2])), 0, SecData, i * PointSizes[Section] + 4 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[3])), 0, SecData, i * PointSizes[Section] + 6 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[4])), 0, SecData, i * PointSizes[Section] + 8 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[5])), 0, SecData, i * PointSizes[Section] + 10 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[6])), 0, SecData, i * PointSizes[Section] + 12 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[7])), 0, SecData, i * PointSizes[Section] + 14 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[8])), 0, SecData, i * PointSizes[Section] + 16 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[9])), 0, SecData, i * PointSizes[Section] + 18 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[10])), 0, SecData, i * PointSizes[Section] + 20 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[11])), 0, SecData, i * PointSizes[Section] + 22 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[12])), 0, SecData, i * PointSizes[Section] + 24 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[13])), 0, SecData, i * PointSizes[Section] + 26 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[14])), 0, SecData, i * PointSizes[Section] + 28 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[15])), 0, SecData, i * PointSizes[Section] + 30 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[16])), 0, SecData, i * PointSizes[Section] + 32 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[17])), 0, SecData, i * PointSizes[Section] + 34 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[18])), 0, SecData, i * PointSizes[Section] + 36 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[19])), 0, SecData, i * PointSizes[Section] + 38 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[20])), 0, SecData, i * PointSizes[Section] + 40 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[21])), 0, SecData, i * PointSizes[Section] + 42 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[22])), 0, SecData, i * PointSizes[Section] + 44 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[23])), 0, SecData, i * PointSizes[Section] + 46 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[24])), 0, SecData, i * PointSizes[Section] + 48 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[25])), 0, SecData, i * PointSizes[Section] + 50 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[26])), 0, SecData, i * PointSizes[Section] + 52 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[27])), 0, SecData, i * PointSizes[Section] + 54 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[28])), 0, SecData, i * PointSizes[Section] + 56 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[29])), 0, SecData, i * PointSizes[Section] + 58 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[30])), 0, SecData, i * PointSizes[Section] + 60 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[31])), 0, SecData, i * PointSizes[Section] + 62 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[32])), 0, SecData, i * PointSizes[Section] + 64 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[33])), 0, SecData, i * PointSizes[Section] + 66 + 8, 2);
+                                for (int ii = 0; ii < 34; ii++)
+                                {
+                                    Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[ii])), 0, SecData, i * PointSizes[Section] + 8 + ii*2, 2);
+                                }
                                 Array.Copy(StringToByte(csv_parse[i].Split(',')[34]), 0, SecData, i * PointSizes[Section] + 68 + 8, 4);
                             }
                             break;
@@ -714,10 +655,10 @@ namespace KMPExpander
                         {
                             for (int i = 0; i < numpt; i++)
                             {
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[0])), 0, SecData, i * PointSizes[Section] + 8, 4);
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[1])), 0, SecData, i * PointSizes[Section] + 4 + 8, 4);
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[2])), 0, SecData, i * PointSizes[Section] + 8 + 8, 4);
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[3])), 0, SecData, i * PointSizes[Section] + 12 + 8, 4);
+                                for (int ii = 0; ii < 4; ii++)
+                                {
+                                    Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[ii])), 0, SecData, i * PointSizes[Section] + 8 + ii * 4, 2);
+                                }
                                 Array.Copy(StringToByte(csv_parse[i].Split(',')[4]), 0, SecData, i * PointSizes[Section] + 16 + 8, 4);
                             }
                             break;
@@ -727,20 +668,10 @@ namespace KMPExpander
                         {
                             for (int i = 0; i < numpt; i++)
                             {
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[0])), 0, SecData, i * PointSizes[Section] + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[1])), 0, SecData, i * PointSizes[Section] + 2 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[2])), 0, SecData, i * PointSizes[Section] + 4 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[3])), 0, SecData, i * PointSizes[Section] + 6 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[4])), 0, SecData, i * PointSizes[Section] + 8 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[5])), 0, SecData, i * PointSizes[Section] + 10 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[6])), 0, SecData, i * PointSizes[Section] + 12 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[7])), 0, SecData, i * PointSizes[Section] + 14 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[8])), 0, SecData, i * PointSizes[Section] + 16 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[9])), 0, SecData, i * PointSizes[Section] + 18 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[10])), 0, SecData, i * PointSizes[Section] + 20 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[11])), 0, SecData, i * PointSizes[Section] + 22 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[12])), 0, SecData, i * PointSizes[Section] + 24 + 8, 2);
-                                Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[13])), 0, SecData, i * PointSizes[Section] + 26 + 8, 2);
+                                for (int ii = 0; ii < 14; ii++)
+                                {
+                                    Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[ii])), 0, SecData, i * PointSizes[Section] + 8 + ii * 2, 2);
+                                }
                             }
                             break;
                         }
@@ -749,18 +680,14 @@ namespace KMPExpander
                         {
                             for (int i = 0; i < numpt; i++)
                             {
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[0])), 0, SecData, i * PointSizes[Section] + 8, 4);
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[1])), 0, SecData, i * PointSizes[Section] + 4 + 8, 4);
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[2])), 0, SecData, i * PointSizes[Section] + 8 + 8, 4);
-                                Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[3])), 0, SecData, i * PointSizes[Section] + 12 + 8, 4);
-                                SecData[i * PointSizes[Section] + 16 + 8] = byte.Parse(csv_parse[i].Split(',')[4]);
-                                SecData[i * PointSizes[Section] + 17 + 8] = byte.Parse(csv_parse[i].Split(',')[5]);
-                                SecData[i * PointSizes[Section] + 18 + 8] = byte.Parse(csv_parse[i].Split(',')[6]);
-                                SecData[i * PointSizes[Section] + 19 + 8] = byte.Parse(csv_parse[i].Split(',')[7]);
-                                SecData[i * PointSizes[Section] + 20 + 8] = byte.Parse(csv_parse[i].Split(',')[8]);
-                                SecData[i * PointSizes[Section] + 21 + 8] = byte.Parse(csv_parse[i].Split(',')[9]);
-                                SecData[i * PointSizes[Section] + 22 + 8] = byte.Parse(csv_parse[i].Split(',')[10]);
-                                SecData[i * PointSizes[Section] + 23 + 8] = byte.Parse(csv_parse[i].Split(',')[11]);
+                                for (int ii = 0; ii < 4; ii++)
+                                {
+                                    Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[ii])), 0, SecData, i * PointSizes[Section] + 8 + ii*4, 4);
+                                }
+                                for (int ii = 4; ii < 12; ii++)
+                                {
+                                    SecData[i * PointSizes[Section] + ii + 8 + 12] = byte.Parse(csv_parse[i].Split(',')[ii]);
+                                }
                             }
                             break;
                         }
@@ -769,20 +696,10 @@ namespace KMPExpander
                         {
                             for (int i = 0; i < numpt; i++)
                             {
-                                SecData[i * PointSizes[Section] + 8] = byte.Parse(csv_parse[i].Split(',')[0]);
-                                SecData[i * PointSizes[Section] + 1 + 8] = byte.Parse(csv_parse[i].Split(',')[1]);
-                                SecData[i * PointSizes[Section] + 2 + 8] = byte.Parse(csv_parse[i].Split(',')[2]);
-                                SecData[i * PointSizes[Section] + 3 + 8] = byte.Parse(csv_parse[i].Split(',')[3]);
-                                SecData[i * PointSizes[Section] + 4 + 8] = byte.Parse(csv_parse[i].Split(',')[4]);
-                                SecData[i * PointSizes[Section] + 5 + 8] = byte.Parse(csv_parse[i].Split(',')[5]);
-                                SecData[i * PointSizes[Section] + 6 + 8] = byte.Parse(csv_parse[i].Split(',')[6]);
-                                SecData[i * PointSizes[Section] + 7 + 8] = byte.Parse(csv_parse[i].Split(',')[7]);
-                                SecData[i * PointSizes[Section] + 8 + 8] = byte.Parse(csv_parse[i].Split(',')[8]);
-                                SecData[i * PointSizes[Section] + 9 + 8] = byte.Parse(csv_parse[i].Split(',')[9]);
-                                SecData[i * PointSizes[Section] + 10 + 8] = byte.Parse(csv_parse[i].Split(',')[10]);
-                                SecData[i * PointSizes[Section] + 11 + 8] = byte.Parse(csv_parse[i].Split(',')[11]);
-                                SecData[i * PointSizes[Section] + 12 + 8] = byte.Parse(csv_parse[i].Split(',')[12]);
-                                SecData[i * PointSizes[Section] + 13 + 8] = byte.Parse(csv_parse[i].Split(',')[13]);
+                                for (int ii = 0; ii < 14; ii++)
+                                {
+                                    SecData[i * PointSizes[Section] + ii + 8] = byte.Parse(csv_parse[i].Split(',')[ii]);
+                                }
                                 Array.Copy(StringToByte(csv_parse[i].Split(',')[14]), 0, SecData, i * PointSizes[Section] + 14 + 8, 2);
                             }
                             break;
@@ -804,17 +721,10 @@ namespace KMPExpander
                                 Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[9])), 0, SecData, i * PointSizes[Section] + 32 + 8, 4);
                                 Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[10])), 0, SecData, i * PointSizes[Section] + 36 + 8, 4);
                                 Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[11])), 0, SecData, i * PointSizes[Section] + 40 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[12]), 0, SecData, i * PointSizes[Section] + 42 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[13]), 0, SecData, i * PointSizes[Section] + 44 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[14]), 0, SecData, i * PointSizes[Section] + 46 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[15]), 0, SecData, i * PointSizes[Section] + 48 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[16]), 0, SecData, i * PointSizes[Section] + 50 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[17]), 0, SecData, i * PointSizes[Section] + 52 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[18]), 0, SecData, i * PointSizes[Section] + 54 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[19]), 0, SecData, i * PointSizes[Section] + 56 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[20]), 0, SecData, i * PointSizes[Section] + 58 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[21]), 0, SecData, i * PointSizes[Section] + 60 + 8, 2);
-                                Array.Copy(StringToByte(csv_parse[i].Split(',')[22]), 0, SecData, i * PointSizes[Section] + 62 + 8, 2);
+                                for (int ii = 12; ii < 23; ii++)
+                                {
+                                    Array.Copy(StringToByte(csv_parse[i].Split(',')[ii]), 0, SecData, i * PointSizes[Section] + 42 + (ii-12)*2 + 8, 2);
+                                }
                             }
                             break;
                         }
@@ -885,20 +795,10 @@ namespace KMPExpander
                         {
                             for (int i = 0; i < numpt; i++)
                             {
-                                SecData[i * PointSizes[Section] + 8] = byte.Parse(csv_parse[i].Split(',')[0]);
-                                SecData[i * PointSizes[Section] + 1 + 8] = byte.Parse(csv_parse[i].Split(',')[1]);
-                                SecData[i * PointSizes[Section] + 2 + 8] = byte.Parse(csv_parse[i].Split(',')[2]);
-                                SecData[i * PointSizes[Section] + 3 + 8] = byte.Parse(csv_parse[i].Split(',')[3]);
-                                SecData[i * PointSizes[Section] + 4 + 8] = byte.Parse(csv_parse[i].Split(',')[4]);
-                                SecData[i * PointSizes[Section] + 5 + 8] = byte.Parse(csv_parse[i].Split(',')[5]);
-                                SecData[i * PointSizes[Section] + 6 + 8] = byte.Parse(csv_parse[i].Split(',')[6]);
-                                SecData[i * PointSizes[Section] + 7 + 8] = byte.Parse(csv_parse[i].Split(',')[7]);
-                                SecData[i * PointSizes[Section] + 8 + 8] = byte.Parse(csv_parse[i].Split(',')[8]);
-                                SecData[i * PointSizes[Section] + 9 + 8] = byte.Parse(csv_parse[i].Split(',')[9]);
-                                SecData[i * PointSizes[Section] + 10 + 8] = byte.Parse(csv_parse[i].Split(',')[10]);
-                                SecData[i * PointSizes[Section] + 11 + 8] = byte.Parse(csv_parse[i].Split(',')[11]);
-                                SecData[i * PointSizes[Section] + 12 + 8] = byte.Parse(csv_parse[i].Split(',')[12]);
-                                SecData[i * PointSizes[Section] + 13 + 8] = byte.Parse(csv_parse[i].Split(',')[13]);
+                                for (int ii = 0; ii < 14; ii++)
+                                {
+                                    SecData[i * PointSizes[Section] + ii + 8] = byte.Parse(csv_parse[i].Split(',')[ii]);
+                                }
                                 Array.Copy(StringToByte(csv_parse[i].Split(',')[14]), 0, SecData, i * PointSizes[Section] + 14 + 8, 4);
                                 Array.Copy(StringToByte(csv_parse[i].Split(',')[15]), 0, SecData, i * PointSizes[Section] + 18 + 8, 4);
                             }
