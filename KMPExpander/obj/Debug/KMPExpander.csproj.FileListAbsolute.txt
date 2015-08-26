@@ -6,3 +6,6 @@ C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.Properties
 C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.csproj.GenerateResource.Cache
 C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.exe
 C:\Users\szymb\Desktop\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.pdb
+C:\Users\Ermii\Documents\GitHub\KMPExpander\KMP-Expander\KMPExpander\bin\Debug\KMPExpander.exe.config
+C:\Users\Ermii\Documents\GitHub\KMPExpander\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.exe
+C:\Users\Ermii\Documents\GitHub\KMPExpander\KMP-Expander\KMPExpander\obj\Debug\KMPExpander.pdb
