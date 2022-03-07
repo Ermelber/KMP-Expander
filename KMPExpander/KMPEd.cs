@@ -18,9 +18,9 @@ namespace KMPExpander
         KMP keiempi;
         KMP bin;
         int SizeOfKMP;
-        byte[] PointSizes = new byte[18] { 255, 24, 72, 20, 28, 24, 16, 64, 255, 255, 255, 28, 255, 255, 255, 255, 24, 22 }; //Size of points inside the sections. If set to 255, the program will ignore anything related to it, including the CSV operations.
-        byte[] NumData = new byte[18] { 255, 6, 35, 5, 14, 12, 15, 23, 4, 255, 255, 8, 255, 255, 255, 255, 6, 16 }; //Number of fields on each section
-        string[,] SecMagic = new string[2, 18] {
+        readonly byte[] PointSizes = new byte[18] { 28, 24, 72, 20, 28, 24, 16, 64, 255, 255, 255, 28, 255, 255, 255, 255, 24, 22 }; //Size of points inside the sections. If set to 255, the program will ignore anything related to it, including the CSV operations.
+        readonly byte[] NumData = new byte[18] { 255, 9, 35, 5, 14, 12, 15, 23, 4, 255, 255, 8, 255, 255, 255, 255, 6, 16 }; //Number of fields on each section
+        readonly string[,] SecMagic = new string[2, 18] {
                                                 {"TPTK","TPNE","HPNE","TPTI","HPTI","TPKC","HPKC","JBOG","ITOP","AERA","EMAC","TPGJ","TPNC","TPSM","IGTS","SROC","TPLG","HPLG"},
                                                 {"KTPT (Kart Point)","ENPT (Enemy Routes)","ENPH (Enemy Routes' Sections)","ITPT (Item Routes)","ITPH (Item Routes' Sections)","CKPT (Checkpoints)","CKPH (Checkpoints' Sections)","GOBJ (Global Objects)","POTI (Routes)","AREA","CAME (Camera)","JGPT (Respawn Points)","CNPT (Cannon Points)","MSPT (Mission Points)","STGI","CORS","GLPT (Glider Points)","GLPH (Glider Points' Sections)"}
                                               };
@@ -358,7 +358,20 @@ namespace KMPExpander
                 csv = csv_intro + "#" + SecMagic[1, Section] + "\n" + "#Amount of Points: " + numpt.ToString() + "\n";
             switch (Section)
             {
-                //KTPT (Not handled)
+                //KTPT
+                case 0:
+                    csv += "# X,Y,Z,X Angle, Y Angle, Z Angle, Index\n";
+                    for (int i = 0; i < numpt; i++)
+                    {
+                        csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]) + ","
+                             + Rad2Deg(BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 20 + i * PointSizes[Section])) + ","
+                             + Rad2Deg(BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section])) + ","
+                             + Rad2Deg(BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 28 + i * PointSizes[Section])) + ","
+                             + BitConverter.ToInt32(keiempi.Data, Offsets[Section] + 0x58 + 32 + i * PointSizes[Section]) + "\n";
+                    }
+                    break;
                 //ENPT
                 case 1:
                     {
