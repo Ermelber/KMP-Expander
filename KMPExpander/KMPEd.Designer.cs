@@ -76,7 +76,7 @@
             this.openKMPToolStripMenuItem.Name = "openKMPToolStripMenuItem";
             this.openKMPToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.openKMPToolStripMenuItem.Text = "Open KMP";
-            this.openKMPToolStripMenuItem.Click += new System.EventHandler(this.openKMPToolStripMenuItem_Click);
+            this.openKMPToolStripMenuItem.Click += new System.EventHandler(this.OpenKMPToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -84,27 +84,27 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // openKMP
             // 
             this.openKMP.FileName = "course.kmp";
             this.openKMP.Filter = "Mario Kart 7 KMP Files|*.kmp|All files|*.*";
             this.openKMP.Title = "Open a Mario Kart 7 KMP File";
-            this.openKMP.FileOk += new System.ComponentModel.CancelEventHandler(this.openKMP_FileOk);
+            this.openKMP.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenKMP_FileOk);
             // 
             // saveKMP
             // 
             this.saveKMP.FileName = "course.kmp";
             this.saveKMP.Filter = "Mario Kart 7 KMP Files|*.kmp|All files|*.*";
-            this.saveKMP.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
+            this.saveKMP.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog1_FileOk);
             // 
             // extractbin
             // 
@@ -115,7 +115,7 @@
             this.extractbin.TabIndex = 2;
             this.extractbin.Text = "Extract binary";
             this.extractbin.UseVisualStyleBackColor = true;
-            this.extractbin.Click += new System.EventHandler(this.extractbin_Click);
+            this.extractbin.Click += new System.EventHandler(this.Extractbin_Click);
             // 
             // injectbin
             // 
@@ -126,7 +126,7 @@
             this.injectbin.TabIndex = 3;
             this.injectbin.Text = "Inject binary";
             this.injectbin.UseVisualStyleBackColor = true;
-            this.injectbin.Click += new System.EventHandler(this.injectbin_Click);
+            this.injectbin.Click += new System.EventHandler(this.Injectbin_Click);
             // 
             // injectcsv
             // 
@@ -137,7 +137,7 @@
             this.injectcsv.TabIndex = 5;
             this.injectcsv.Text = "Inject CSV";
             this.injectcsv.UseVisualStyleBackColor = true;
-            this.injectcsv.Click += new System.EventHandler(this.injectcsv_Click);
+            this.injectcsv.Click += new System.EventHandler(this.Injectcsv_Click);
             // 
             // extractcsv
             // 
@@ -148,7 +148,7 @@
             this.extractcsv.TabIndex = 4;
             this.extractcsv.Text = "Extract CSV";
             this.extractcsv.UseVisualStyleBackColor = true;
-            this.extractcsv.Click += new System.EventHandler(this.extractcsv_Click);
+            this.extractcsv.Click += new System.EventHandler(this.Extractcsv_Click);
             // 
             // comboBox1
             // 
@@ -178,13 +178,13 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(228, 21);
             this.comboBox1.TabIndex = 6;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // saveBinary
             // 
             this.saveBinary.Filter = "Binary File|*.bin|All Files|*.*";
             this.saveBinary.Title = "Extract Binary Section";
-            this.saveBinary.FileOk += new System.ComponentModel.CancelEventHandler(this.saveBinary_FileOk);
+            this.saveBinary.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveBinary_FileOk);
             // 
             // label1
             // 
@@ -194,7 +194,7 @@
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Select a Section:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // label2
             // 
@@ -216,7 +216,7 @@
             this.filesize_box.ReadOnly = true;
             this.filesize_box.Size = new System.Drawing.Size(64, 13);
             this.filesize_box.TabIndex = 9;
-            this.filesize_box.TextChanged += new System.EventHandler(this.filesize_box_TextChanged);
+            this.filesize_box.TextChanged += new System.EventHandler(this.Filesize_box_TextChanged);
             // 
             // openBinary
             // 
@@ -226,7 +226,7 @@
             // saveCSV
             // 
             this.saveCSV.Filter = "Comma Separated Values|*.csv|Text file|*.txt|All files|*.*";
-            this.saveCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.saveCSV_FileOk);
+            this.saveCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveCSV_FileOk);
             // 
             // openCSV
             // 

@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tools.cs" />
     <Compile Include="KMPEd.cs">
       <SubType>Form</SubType>
     </Compile>
