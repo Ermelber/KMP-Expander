@@ -19,7 +19,7 @@ namespace KMPExpander
         KMP bin;
         int SizeOfKMP;
         readonly byte[] PointSizes = new byte[18] { 28, 24, 72, 20, 28, 24, 16, 64, 255, 255, 255, 28, 255, 255, 255, 255, 24, 22 }; //Size of points inside the sections. If set to 255, the program will ignore anything related to it, including the CSV operations.
-        readonly byte[] NumData = new byte[18] { 255, 9, 35, 5, 14, 12, 15, 23, 4, 255, 255, 8, 255, 255, 255, 255, 6, 16 }; //Number of fields on each section
+        readonly byte[] NumData = new byte[18] { 7, 9, 35, 5, 14, 12, 15, 23, 4, 255, 255, 8, 255, 255, 255, 255, 6, 16 }; //Number of fields on each section
         readonly string[,] SecMagic = new string[2, 18] {
                                                 {"TPTK","TPNE","HPNE","TPTI","HPTI","TPKC","HPKC","JBOG","ITOP","AERA","EMAC","TPGJ","TPNC","TPSM","IGTS","SROC","TPLG","HPLG"},
                                                 {"KTPT (Kart Point)","ENPT (Enemy Routes)","ENPH (Enemy Routes' Sections)","ITPT (Item Routes)","ITPH (Item Routes' Sections)","CKPT (Checkpoints)","CKPH (Checkpoints' Sections)","GOBJ (Global Objects)","POTI (Routes)","AREA","CAME (Camera)","JGPT (Respawn Points)","CNPT (Cannon Points)","MSPT (Mission Points)","STGI","CORS","GLPT (Glider Points)","GLPH (Glider Points' Sections)"}
@@ -706,6 +706,19 @@ namespace KMPExpander
                 //Serious stuff
                 switch (Section)
                 {
+                    //KTPT
+                    case 0:
+                        for (int i = 0; i < numpt; i++)
+                        {
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[0])), 0, SecData, i * PointSizes[Section] + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[1])), 0, SecData, i * PointSizes[Section] + 4 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[2])), 0, SecData, i * PointSizes[Section] + 8 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(float.Parse(csv_parse[i].Split(',')[3]))), 0, SecData, i * PointSizes[Section] + 12 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(float.Parse(csv_parse[i].Split(',')[4]))), 0, SecData, i * PointSizes[Section] + 16 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(float.Parse(csv_parse[i].Split(',')[5]))), 0, SecData, i * PointSizes[Section] + 20 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(int.Parse(csv_parse[i].Split(',')[6]))), 0, SecData, i * PointSizes[Section] + 24 + 8, 4);
+                        }
+                        break;
                     //ENPT
                     case 1:
                         {
