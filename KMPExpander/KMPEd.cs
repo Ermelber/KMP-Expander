@@ -462,7 +462,7 @@ namespace KMPExpander
                     break;
                 //CKPT
                 case 5:
-                    csv += "#X1,Z1,X2,Z2,Respawn,Type,Previous,Next,Unkown1,SectionCount,Unknown2,Unknown3\n";
+                    csv += "#X1,Z1,X2,Z2,Respawn,Type,Previous,Next,Clip ID,SectionCount,Unknown1,Unknown2\n";
                     for (int i = 0; i < numpt; i++)
                     {
                         csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
