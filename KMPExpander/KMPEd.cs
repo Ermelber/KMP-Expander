@@ -429,14 +429,15 @@ namespace KMPExpander
                     break;
                 //ITPT
                 case 3:
-                    csv += "#X,Y,Z,Point Size,Unknown\n";
+                    csv += "#X,Y,Z,Point Size,Fly,Player Scan Radius\n";
                     for (int i = 0; i < numpt; i++)
                     {
                         csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
                              + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]) + ","
                              + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]) + ","
                              + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]) + ","
-                             + "'" + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section], 4).Replace("-", string.Empty) + "\n";
+                             + (short)(keiempi[Offsets[Section] + 0x58 + 24 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 24 + 1 + i * PointSizes[Section]] << 8) + ","
+                             + (short)(keiempi[Offsets[Section] + 0x58 + 26 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 26 + 1 + i * PointSizes[Section]] << 8) + "\n";
                     }
                     break;
                 //ITPH
