@@ -357,7 +357,7 @@ namespace KMPExpander
             {
                 //KTPT
                 case 0:
-                    csv += "# X,Y,Z,X Angle, Y Angle, Z Angle, Index\n";
+                    csv += "# X,Y,Z,X Angle,Y Angle,Z Angle,Index\n";
                     for (int i = 0; i < numpt; i++)
                     {
                         csv += BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section]) + ","
