@@ -8,12 +8,6 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
 # Windows shortcuts
 *.lnk
 
@@ -26,6 +20,49 @@ $RECYCLE.BIN/
 # Build results
 [Bb]in/
 [Oo]bj/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
 
 # =========================
 # Operating System Files
