@@ -18,8 +18,8 @@ namespace KMPExpander
         KMP keiempi;
         KMP bin;
         int SizeOfKMP;
-        readonly byte[] PointSizes = new byte[18] { 28, 24, 72, 20, 28, 24, 16, 64, 255, 255, 255, 28, 255, 255, 255, 255, 24, 22 }; //Size of points inside the sections. If set to 255, the program will ignore anything related to it, including the CSV operations.
-        readonly byte[] NumData = new byte[18] { 7, 9, 35, 5, 14, 12, 15, 23, 4, 255, 255, 8, 255, 255, 255, 255, 6, 16 }; //Number of fields on each section
+        readonly byte[] PointSizes = new byte[18] { 28, 24, 72, 20, 28, 24, 16, 64, 255, 48, 255, 28, 255, 255, 255, 255, 24, 22 }; //Size of points inside the sections. If set to 255, the program will ignore anything related to it, including the CSV operations.
+        readonly byte[] NumData = new byte[18] { 7, 9, 35, 5, 14, 12, 15, 23, 4, 18, 255, 8, 255, 255, 255, 255, 6, 16 }; //Number of fields on each section
         readonly string[,] SecMagic = new string[2, 18] {
                                                 {"TPTK","TPNE","HPNE","TPTI","HPTI","TPKC","HPKC","JBOG","ITOP","AERA","EMAC","TPGJ","TPNC","TPSM","IGTS","SROC","TPLG","HPLG"},
                                                 {"KTPT (Kart Point)","ENPT (Enemy Routes)","ENPH (Enemy Routes' Sections)","ITPT (Item Routes)","ITPH (Item Routes' Sections)","CKPT (Checkpoints)","CKPH (Checkpoints' Sections)","GOBJ (Global Objects)","POTI (Routes)","AREA","CAME (Camera)","JGPT (Respawn Points)","CNPT (Cannon Points)","MSPT (Mission Points)","STGI","CORS","GLPT (Glider Points)","GLPH (Glider Points' Sections)"}
@@ -565,6 +565,33 @@ namespace KMPExpander
                         }
                     }
                     break;
+                //AERA
+                case 9:
+                    csv += "#mode,type,EMACindex,Unknown0,X,Y,Z,X Angle,Y Angle,Z Angle,X Scale,Y Scale,Z Scale,settings 1,settings 2,Route ID,Enemy ID,unknown1\n";
+                    for (int i = 0; i < numpt; i++)
+                    {
+                        csv += BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 8 + i * PointSizes[Section], 1) + ","
+                             + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 9 + i * PointSizes[Section], 1) + ","
+                             + (sbyte)keiempi[Offsets[Section] + 0x58 + 10 + i * PointSizes[Section]] + ","
+                             + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 11 + i * PointSizes[Section], 1) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 12 + i * PointSizes[Section]) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 16 + i * PointSizes[Section]) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 20 + i * PointSizes[Section]) + ","
+                             + Rad2Deg(BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 24 + i * PointSizes[Section])) + ","
+                             + Rad2Deg(BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 28 + i * PointSizes[Section])) + ","
+                             + Rad2Deg(BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 32 + i * PointSizes[Section])) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 36 + i * PointSizes[Section]) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 40 + i * PointSizes[Section]) + ","
+                             + BitConverter.ToSingle(keiempi.Data, Offsets[Section] + 0x58 + 44 + i * PointSizes[Section]) + ","
+                             + (short)(keiempi[Offsets[Section] + 0x58 + 48 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 48 + 1 + i * PointSizes[Section]] << 8) + ","
+                             + (short)(keiempi[Offsets[Section] + 0x58 + 50 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 50 + 1 + i * PointSizes[Section]] << 8) + ","
+                             + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 52 + i * PointSizes[Section], 1) + ","
+                             + BitConverter.ToString(keiempi.Data, Offsets[Section] + 0x58 + 53 + i * PointSizes[Section], 1) + ","
+                             + (sbyte)keiempi[Offsets[Section] + 0x58 + 52 + i * PointSizes[Section]] + ","
+                             + (sbyte)keiempi[Offsets[Section] + 0x58 + 53 + i * PointSizes[Section]] + ","
+                             + (short)(keiempi[Offsets[Section] + 0x58 + 54 + i * PointSizes[Section]] | keiempi[Offsets[Section] + 0x58 + 58 + 1 + i * PointSizes[Section]] << 8) + "\n";
+                    }
+                    break;
                 //JGPT
                 case 11:
                     csv += "#X,Y,Z,X Angle,Y Angle,Z Angle,Index,Unknown\n";
@@ -881,6 +908,30 @@ namespace KMPExpander
                                 }
                             }
                         SecData[prev] = (byte)numpt_ins;
+                        break;
+                    //AERA
+                    case 9:
+                        for (int i = 0; i < numpt; i++)
+                        {
+                            SecData[i * PointSizes[Section] + 1 + 8] = byte.Parse(csv_parse[i].Split(',')[0]);
+                            SecData[i * PointSizes[Section] + 2 + 8] = byte.Parse(csv_parse[i].Split(',')[1]);
+                            SecData[i * PointSizes[Section] + 3 + 8] = (byte)sbyte.Parse(csv_parse[i].Split(',')[2]);
+                            SecData[i * PointSizes[Section] + 4 + 8] = byte.Parse(csv_parse[i].Split(',')[3]);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[4])), 0, SecData, i * PointSizes[Section] + 8 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[5])), 0, SecData, i * PointSizes[Section] + 12 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[6])), 0, SecData, i * PointSizes[Section] + 16 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(float.Parse(csv_parse[i].Split(',')[7]))), 0, SecData, i * PointSizes[Section] + 20 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(float.Parse(csv_parse[i].Split(',')[8]))), 0, SecData, i * PointSizes[Section] + 24 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(Deg2Rad(float.Parse(csv_parse[i].Split(',')[9]))), 0, SecData, i * PointSizes[Section] + 28 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[10])), 0, SecData, i * PointSizes[Section] + 32 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[11])), 0, SecData, i * PointSizes[Section] + 36 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(float.Parse(csv_parse[i].Split(',')[12])), 0, SecData, i * PointSizes[Section] + 40 + 8, 4);
+                            Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[13])), 0, SecData, i * PointSizes[Section] + 42 + 8, 2);
+                            Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[14])), 0, SecData, i * PointSizes[Section] + 44 + 8, 2);
+                            SecData[i * PointSizes[Section] + 45 + 8] = (byte)sbyte.Parse(csv_parse[i].Split(',')[15]);
+                            SecData[i * PointSizes[Section] + 46 + 8] = (byte)sbyte.Parse(csv_parse[i].Split(',')[16]);
+                            Array.Copy(BitConverter.GetBytes(short.Parse(csv_parse[i].Split(',')[17])), 0, SecData, i * PointSizes[Section] + 46 + 8, 2);
+                        }
                         break;
                     //JGPT
                     case 11:
